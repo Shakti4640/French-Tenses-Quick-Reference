@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇫🇷 French Tenses — Quick Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0f14;
+    --surface: #16181f;
+    --card: #1c1f2a;
+    --border: #2a2d3a;
+    --accent: #c8a96e;
+    --accent2: #7eb8c9;
+    --accent3: #a98ee0;
+    --text: #e8e6df;
+    --muted: #8a8a9a;
+    --tag-bg: #1e2030;
+    --green: #6db88e;
+    --red: #c97070;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  /* ── Header ─────────────────────────────────── */
+  .hero {
+    background: linear-gradient(135deg, #0e0f14 0%, #151724 50%, #0e0f14 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 40px 32px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(200,169,110,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-flag { font-size: 2.4rem; margin-bottom: 10px; display: block; }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
+  }
+  .hero p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .tense-count {
+    display: inline-block;
+    margin-top: 14px;
+    background: rgba(200,169,110,0.1);
+    border: 1px solid rgba(200,169,110,0.3);
+    color: var(--accent);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  /* ── Mood groups ─────────────────────────────── */
+  .mood-nav {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px 24px 0;
+  }
+  .mood-btn {
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .mood-btn:hover { color: var(--text); border-color: #444; }
+  .mood-btn.active {
+    background: rgba(200,169,110,0.15);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* ── Tab bar ─────────────────────────────────── */
+  .tab-wrapper {
+    overflow-x: auto;
+    padding: 18px 24px 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .tab-bar {
+    display: flex;
+    gap: 4px;
+    min-width: max-content;
+  }
+  .tab-btn {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    padding: 8px 12px 10px;
+    cursor: pointer;
+    transition: all 0.18s;
+    white-space: nowrap;
+    border-radius: 4px 4px 0 0;
+  }
+  .tab-btn:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+  .tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+    background: rgba(200,169,110,0.06);
+  }
+  .tab-btn .num {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--muted);
+    font-size: 0.6rem;
+    padding: 1px 5px;
+    border-radius: 8px;
+    margin-right: 5px;
+    font-weight: 500;
+  }
+  .tab-btn.active .num { background: rgba(200,169,110,0.2); color: var(--accent); }
+
+  /* ── Divider line ─────────────────────────────── */
+  .tab-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0 24px;
+  }
+
+  /* ── Panel ───────────────────────────────────── */
+  .panels { padding: 28px 24px 0; max-width: 900px; margin: 0 auto; }
+
+  .panel { display: none; animation: fadeUp 0.3s ease; }
+  .panel.active { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .panel-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .panel-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    color: rgba(200,169,110,0.2);
+    line-height: 1;
+    min-width: 48px;
+    text-align: center;
+    font-weight: 700;
+  }
+  .panel-titles { flex: 1; }
+  .panel-title-fr {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.55rem;
+    color: var(--accent);
+    line-height: 1.2;
+  }
+  .panel-title-en {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 4px;
+    letter-spacing: 0.04em;
+  }
+  .mood-tag {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 12px;
+    margin-top: 8px;
+    display: inline-block;
+  }
+  .tag-indicatif { background: rgba(126,184,201,0.12); color: var(--accent2); border: 1px solid rgba(126,184,201,0.25); }
+  .tag-conditionnel { background: rgba(169,142,224,0.12); color: var(--accent3); border: 1px solid rgba(169,142,224,0.25); }
+  .tag-subjonctif { background: rgba(200,169,110,0.12); color: var(--accent); border: 1px solid rgba(200,169,110,0.25); }
+  .tag-imperatif { background: rgba(109,184,142,0.12); color: var(--green); border: 1px solid rgba(109,184,142,0.25); }
+  .tag-other { background: rgba(201,112,112,0.12); color: var(--red); border: 1px solid rgba(201,112,112,0.25); }
+
+  /* ── Cards grid ─────────────────────────────── */
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+  @media (max-width: 600px) { .cards { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .card-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .card-label::before {
+    content: '';
+    display: block;
+    width: 3px;
+    height: 12px;
+    border-radius: 2px;
+    background: var(--accent);
+    opacity: 0.6;
+  }
+  .card.formation .card-label::before { background: var(--accent2); }
+  .card-body {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--text);
+  }
+  .card-body ul { list-style: none; }
+  .card-body li { padding: 2px 0; }
+  .card-body li::before { content: '→ '; color: var(--accent); font-size: 0.8rem; }
+
+  /* Formation box */
+  .formula-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent2);
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--accent2);
+    line-height: 1.6;
+    margin-top: 8px;
+    word-break: break-word;
+  }
+
+  /* Examples */
+  .examples-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .ex-row {
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+    padding: 9px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .ex-row:last-child { border-bottom: none; }
+  .ex-fr {
+    font-style: italic;
+    color: var(--accent);
+    font-size: 0.9rem;
+    flex: 1;
+    min-width: 0;
+  }
+  .ex-en {
+    color: var(--muted);
+    font-size: 0.83rem;
+    flex: 1;
+    min-width: 0;
+  }
+  .ex-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.4;
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  /* ── Hidden panels util ─────────────────────── */
+  .tab-btn[data-mood] { display: none; }
+  .tab-btn.visible { display: inline-block; }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { height: 4px; width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="hero-flag">🇫🇷</span>
+  <h1>French Tenses — Quick Reference</h1>
+  <p>When to use it · How to form it · Examples</p>
+  <span class="tense-count">21 Tenses</span>
+</div>
+
+<!-- Mood filter -->
+<div class="mood-nav">
+  <button class="mood-btn active" data-filter="all">All</button>
+  <button class="mood-btn" data-filter="indicatif">Indicatif</button>
+  <button class="mood-btn" data-filter="conditionnel">Conditionnel</button>
+  <button class="mood-btn" data-filter="subjonctif">Subjonctif</button>
+  <button class="mood-btn" data-filter="imperatif">Impératif</button>
+  <button class="mood-btn" data-filter="other">Other</button>
+</div>
+
+<!-- Tab bar -->
+<div class="tab-wrapper">
+  <div class="tab-bar" id="tabBar">
+    <button class="tab-btn visible active" data-tab="1" data-mood="indicatif"><span class="num">1</span>Présent</button>
+    <button class="tab-btn visible" data-tab="2" data-mood="indicatif"><span class="num">2</span>Passé Composé</button>
+    <button class="tab-btn visible" data-tab="3" data-mood="indicatif"><span class="num">3</span>Imparfait</button>
+    <button class="tab-btn visible" data-tab="4" data-mood="indicatif"><span class="num">4</span>Plus-que-parfait</button>
+    <button class="tab-btn visible" data-tab="5" data-mood="indicatif"><span class="num">5</span>Passé Simple</button>
+    <button class="tab-btn visible" data-tab="6" data-mood="indicatif"><span class="num">6</span>Passé Antérieur</button>
+    <button class="tab-btn visible" data-tab="7" data-mood="indicatif"><span class="num">7</span>Futur Proche</button>
+    <button class="tab-btn visible" data-tab="8" data-mood="indicatif"><span class="num">8</span>Futur Simple</button>
+    <button class="tab-btn visible" data-tab="9" data-mood="indicatif"><span class="num">9</span>Futur Antérieur</button>
+    <button class="tab-btn visible" data-tab="10" data-mood="indicatif"><span class="num">10</span>Passé Récent</button>
+    <button class="tab-btn visible" data-tab="11" data-mood="conditionnel"><span class="num">11</span>Cond. Présent</button>
+    <button class="tab-btn visible" data-tab="12" data-mood="conditionnel"><span class="num">12</span>Cond. Passé</button>
+    <button class="tab-btn visible" data-tab="13" data-mood="subjonctif"><span class="num">13</span>Subj. Présent</button>
+    <button class="tab-btn visible" data-tab="14" data-mood="subjonctif"><span class="num">14</span>Subj. Passé</button>
+    <button class="tab-btn visible" data-tab="15" data-mood="subjonctif"><span class="num">15</span>Subj. Imparfait</button>
+    <button class="tab-btn visible" data-tab="16" data-mood="subjonctif"><span class="num">16</span>Subj. PQP</button>
+    <button class="tab-btn visible" data-tab="17" data-mood="imperatif"><span class="num">17</span>Impér. Présent</button>
+    <button class="tab-btn visible" data-tab="18" data-mood="imperatif"><span class="num">18</span>Impér. Passé</button>
+    <button class="tab-btn visible" data-tab="19" data-mood="other"><span class="num">19</span>Participe Prés.</button>
+    <button class="tab-btn visible" data-tab="20" data-mood="other"><span class="num">20</span>Participe Passé</button>
+    <button class="tab-btn visible" data-tab="21" data-mood="other"><span class="num">21</span>Infinitif</button>
+  </div>
+</div>
+<div class="tab-divider"></div>
+
+<!-- Panels -->
+<div class="panels">
+
+  <!-- 1: Présent -->
+  <div class="panel active" id="panel-1">
+    <div class="panel-header">
+      <div class="panel-num">01</div>
+      <div class="panel-titles">
+        <div class="panel-title-fr">Le Présent de l'Indicatif</div>
+        <div class="panel-title-en">Present Tense</div>
+        <span class="mood-tag tag-indicatif">Indicatif</span>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">When to use</div>
+        <div class="card-body"><ul>
+          <li>Actions happening right now</li>
+          <li>Habits and routines</li>
+          <li>General truths &amp; facts</li>
+          <li>With <em>depuis</em> (ongoing since past)</li>
+          <li>Near future / scheduled events</li>
+          <li>Si-clauses (real conditions)</li>
+        </ul></div>
+      </div>
+      <div class="card formation">
+        <div class="card-label">Formation</div>
+        <div class="card-body">
+          Remove infinitive ending → add endings:
+          <div class="formula-box">
+            -ER: -e / -es / -e / -ons / -ez / -ent<br>
+            -IR: -is / -is / -it / -issons / -issez / -issent<br>
+            -RE: -s / -s / — / -ons / -ez / -ent
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="examples-card">
+      <div class="card-label">Examples</div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Je parle français tous les jours.</span><span class="ex-en">I speak French every day.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Il pleut dehors.</span><span class="ex-en">It is raining outside.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">J'habite à Paris depuis 5 ans.</span><span class="ex-en">I have been living in Paris for 5 years.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Si tu viens, je serai content.</span><span class="ex-en">If you come, I will be happy.</span></div>
+    </div>
+  </div>
+
+  <!-- 2: Passé Composé -->
+  <div class="panel" id="panel-2">
+    <div class="panel-header">
+      <div class="panel-num">02</div>
+      <div class="panel-titles">
+        <div class="panel-title-fr">Le Passé Composé</div>
+        <div class="panel-title-en">Compound Past / Present Perfect</div>
+        <span class="mood-tag tag-indicatif">Indicatif</span>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">When to use</div>
+        <div class="card-body"><ul>
+          <li>Completed past actions</li>
+          <li>Actions with a specific time / result</li>
+          <li>Events in spoken &amp; everyday French</li>
+          <li>A series of past events in sequence</li>
+        </ul></div>
+      </div>
+      <div class="card formation">
+        <div class="card-label">Formation</div>
+        <div class="card-body">
+          Auxiliary verb + past participle:
+          <div class="formula-box">
+            avoir/être (présent) + participe passé<br><br>
+            -ER → -é &nbsp; -IR → -i &nbsp; -RE → -u<br>
+            être verbs agree in gender/number
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="examples-card">
+      <div class="card-label">Examples</div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">J'ai mangé une pomme ce matin.</span><span class="ex-en">I ate an apple this morning.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Elle est arrivée hier soir.</span><span class="ex-en">She arrived last night.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Nous avons vu ce film deux fois.</span><span class="ex-en">We saw that film twice.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Il s'est levé tôt.</span><span class="ex-en">He got up early.</span></div>
+    </div>
+  </div>
+
+  <!-- 3: Imparfait -->
+  <div class="panel" id="panel-3">
+    <div class="panel-header">
+      <div class="panel-num">03</div>
+      <div class="panel-titles">
+        <div class="panel-title-fr">L'Imparfait</div>
+        <div class="panel-title-en">The Imperfect Tense</div>
+        <span class="mood-tag tag-indicatif">Indicatif</span>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">When to use</div>
+        <div class="card-body"><ul>
+          <li>Past habits ("used to")</li>
+          <li>Background descriptions in past</li>
+          <li>Ongoing / interrupted past actions</li>
+          <li>States of mind, feelings, appearance</li>
+          <li>Polite requests (softer than présent)</li>
+        </ul></div>
+      </div>
+      <div class="card formation">
+        <div class="card-label">Formation</div>
+        <div class="card-body">
+          Take <em>nous</em> form of présent, remove <em>-ons</em>:
+          <div class="formula-box">
+            stem + -ais / -ais / -ait<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-ions / -iez / -aient<br><br>
+            Only être is irregular: ét-
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="examples-card">
+      <div class="card-label">Examples</div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Quand j'étais petit, je jouais dehors.</span><span class="ex-en">When I was little, I used to play outside.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Il faisait beau ce matin-là.</span><span class="ex-en">The weather was nice that morning.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Je lisais quand le téléphone a sonné.</span><span class="ex-en">I was reading when the phone rang.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Je voulais vous demander un service.</span><span class="ex-en">I wanted to ask you a favour.</span></div>
+    </div>
+  </div>
+
+  <!-- 4: Plus-que-parfait -->
+  <div class="panel" id="panel-4">
+    <div class="panel-header">
+      <div class="panel-num">04</div>
+      <div class="panel-titles">
+        <div class="panel-title-fr">Le Plus-que-parfait</div>
+        <div class="panel-title-en">The Pluperfect / Past Perfect</div>
+        <span class="mood-tag tag-indicatif">Indicatif</span>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">When to use</div>
+        <div class="card-body"><ul>
+          <li>Action completed <em>before</em> another past action</li>
+          <li>"Had done" before something else happened</li>
+          <li>Reported speech (backshift)</li>
+          <li>Si-clauses (unreal past conditions)</li>
+        </ul></div>
+      </div>
+      <div class="card formation">
+        <div class="card-label">Formation</div>
+        <div class="card-body">
+          <div class="formula-box">
+            avoir/être (imparfait) + participe passé<br><br>
+            j'avais parlé &nbsp;/&nbsp; j'étais parti(e)
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="examples-card">
+      <div class="card-label">Examples</div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Il était déjà parti quand je suis arrivé.</span><span class="ex-en">He had already left when I arrived.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">J'avais oublié mes clés.</span><span class="ex-en">I had forgotten my keys.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Si j'avais su, je serais venu.</span><span class="ex-en">If I had known, I would have come.</span></div>
+    </div>
+  </div>
+
+  <!-- 5: Passé Simple -->
+  <div class="panel" id="panel-5">
+    <div class="panel-header">
+      <div class="panel-num">05</div>
+      <div class="panel-titles">
+        <div class="panel-title-fr">Le Passé Simple</div>
+        <div class="panel-title-en">The Simple Past / Literary Past</div>
+        <span class="mood-tag tag-indicatif">Indicatif</span>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">When to use</div>
+        <div class="card-body"><ul>
+          <li>Completed past actions in <strong>literary / formal writing</strong></li>
+          <li>Replaces passé composé in written narration</li>
+          <li>Historical accounts, novels, journalism</li>
+          <li>Never used in everyday spoken French</li>
+        </ul></div>
+      </div>
+      <div class="card formation">
+        <div class="card-label">Formation</div>
+        <div class="card-body">
+          <div class="formula-box">
+            -ER: -ai/-as/-a/-âmes/-âtes/-èrent<br>
+            -IR/-RE: -is/-is/-it/-îmes/-îtes/-irent<br>
+            Irregulars: fus, eus, vint, fit…
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="examples-card">
+      <div class="card-label">Examples</div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Il parla longuement du sujet.</span><span class="ex-en">He spoke at length about the subject.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Elle naquit en 1850.</span><span class="ex-en">She was born in 1850.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Ils se battirent toute la nuit.</span><span class="ex-en">They fought all night.</span></div>
+    </div>
+  </div>
+
+  <!-- 6: Passé Antérieur -->
+  <div class="panel" id="panel-6">
+    <div class="panel-header">
+      <div class="panel-num">06</div>
+      <div class="panel-titles">
+        <div class="panel-title-fr">Le Passé Antérieur</div>
+        <div class="panel-title-en">The Past Anterior</div>
+        <span class="mood-tag tag-indicatif">Indicatif</span>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">When to use</div>
+        <div class="card-body"><ul>
+          <li>Literary equivalent of plus-que-parfait</li>
+          <li>Action just completed before another past action</li>
+          <li>After: <em>dès que, quand, aussitôt que, après que</em> + passé simple</li>
+          <li>Never used in spoken French</li>
+        </ul></div>
+      </div>
+      <div class="card formation">
+        <div class="card-label">Formation</div>
+        <div class="card-body">
+          <div class="formula-box">
+            avoir/être (passé simple) + participe passé<br><br>
+            il eut fini &nbsp;/&nbsp; il fut parti
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="examples-card">
+      <div class="card-label">Examples</div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Dès qu'il eut fini, il sortit.</span><span class="ex-en">As soon as he had finished, he went out.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Quand elle fut arrivée, le repas commença.</span><span class="ex-en">When she had arrived, the meal began.</span></div>
+    </div>
+  </div>
+
+  <!-- 7: Futur Proche -->
+  <div class="panel" id="panel-7">
+    <div class="panel-header">
+      <div class="panel-num">07</div>
+      <div class="panel-titles">
+        <div class="panel-title-fr">Le Futur Proche</div>
+        <div class="panel-title-en">The Near / Immediate Future</div>
+        <span class="mood-tag tag-indicatif">Indicatif</span>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">When to use</div>
+        <div class="card-body"><ul>
+          <li>Immediate / near future plans</li>
+          <li>Strong intentions</li>
+          <li>Things about to happen</li>
+          <li>More certain than futur simple</li>
+        </ul></div>
+      </div>
+      <div class="card formation">
+        <div class="card-label">Formation</div>
+        <div class="card-body">
+          <div class="formula-box">
+            aller (présent) + infinitif<br><br>
+            je vais / tu vas / il va<br>
+            nous allons / vous allez / ils vont
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="examples-card">
+      <div class="card-label">Examples</div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Je vais partir dans cinq minutes.</span><span class="ex-en">I am going to leave in five minutes.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Il va pleuvoir ce soir.</span><span class="ex-en">It's going to rain tonight.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Nous allons visiter Rome en juillet.</span><span class="ex-en">We are going to visit Rome in July.</span></div>
+    </div>
+  </div>
+
+  <!-- 8: Futur Simple -->
+  <div class="panel" id="panel-8">
+    <div class="panel-header">
+      <div class="panel-num">08</div>
+      <div class="panel-titles">
+        <div class="panel-title-fr">Le Futur Simple</div>
+        <div class="panel-title-en">The Simple Future</div>
+        <span class="mood-tag tag-indicatif">Indicatif</span>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">When to use</div>
+        <div class="card-body"><ul>
+          <li>Future actions &amp; predictions</li>
+          <li>Promises and commitments</li>
+          <li>Formal or more distant plans</li>
+          <li>After <em>quand / lorsque / dès que</em> (when)</li>
+        </ul></div>
+      </div>
+      <div class="card formation">
+        <div class="card-label">Formation</div>
+        <div class="card-body">
+          Infinitif (drop -e for -RE) + endings:
+          <div class="formula-box">
+            -ai / -as / -a / -ons / -ez / -ont<br><br>
+            Irregulars: aller→ir-, avoir→aur-,<br>
+            être→ser-, faire→fer-, venir→viendr-
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="examples-card">
+      <div class="card-label">Examples</div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Demain, je voyagerai en Italie.</span><span class="ex-en">Tomorrow, I will travel to Italy.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Je te promets que je viendrai.</span><span class="ex-en">I promise I will come.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Quand tu arriveras, appelle-moi.</span><span class="ex-en">When you arrive, call me.</span></div>
+    </div>
+  </div>
+
+  <!-- 9: Futur Antérieur -->
+  <div class="panel" id="panel-9">
+    <div class="panel-header">
+      <div class="panel-num">09</div>
+      <div class="panel-titles">
+        <div class="panel-title-fr">Le Futur Antérieur</div>
+        <div class="panel-title-en">Future Perfect</div>
+        <span class="mood-tag tag-indicatif">Indicatif</span>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">When to use</div>
+        <div class="card-body"><ul>
+          <li>Will have done X before another future event</li>
+          <li>After <em>quand, dès que, aussitôt que</em></li>
+          <li>Assumptions about the past ("must have done")</li>
+        </ul></div>
+      </div>
+      <div class="card formation">
+        <div class="card-label">Formation</div>
+        <div class="card-body">
+          <div class="formula-box">
+            avoir/être (futur simple) + participe passé<br><br>
+            j'aurai fini &nbsp;/&nbsp; je serai parti(e)
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="examples-card">
+      <div class="card-label">Examples</div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">J'aurai terminé avant midi.</span><span class="ex-en">I will have finished before noon.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Dès qu'il aura mangé, on partira.</span><span class="ex-en">Once he has eaten, we'll leave.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Il aura oublié, comme d'habitude.</span><span class="ex-en">He must have forgotten, as usual.</span></div>
+    </div>
+  </div>
+
+  <!-- 10: Passé Récent -->
+  <div class="panel" id="panel-10">
+    <div class="panel-header">
+      <div class="panel-num">10</div>
+      <div class="panel-titles">
+        <div class="panel-title-fr">Le Passé Récent</div>
+        <div class="panel-title-en">Recent Past</div>
+        <span class="mood-tag tag-indicatif">Indicatif</span>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">When to use</div>
+        <div class="card-body"><ul>
+          <li>Something that <em>just</em> happened</li>
+          <li>Very recent completed action</li>
+          <li>Mirror of futur proche, but for the past</li>
+        </ul></div>
+      </div>
+      <div class="card formation">
+        <div class="card-label">Formation</div>
+        <div class="card-body">
+          <div class="formula-box">
+            venir de (présent) + infinitif<br><br>
+            je viens de / tu viens de / il vient de<br>
+            nous venons de / vous venez de / ils viennent de
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="examples-card">
+      <div class="card-label">Examples</div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Je viens de manger.</span><span class="ex-en">I just ate.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Elle vient de partir.</span><span class="ex-en">She just left.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Ils viennent d'annoncer les résultats.</span><span class="ex-en">They just announced the results.</span></div>
+    </div>
+  </div>
+
+  <!-- 11: Conditionnel Présent -->
+  <div class="panel" id="panel-11">
+    <div class="panel-header">
+      <div class="panel-num">11</div>
+      <div class="panel-titles">
+        <div class="panel-title-fr">Le Conditionnel Présent</div>
+        <div class="panel-title-en">Present Conditional</div>
+        <span class="mood-tag tag-conditionnel">Conditionnel</span>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">When to use</div>
+        <div class="card-body"><ul>
+          <li>Hypothetical situations ("would")</li>
+          <li>Polite requests (<em>je voudrais…</em>)</li>
+          <li>Wishes &amp; desires</li>
+          <li>Unconfirmed news / rumours</li>
+          <li>Si + imparfait → conditionnel présent</li>
+        </ul></div>
+      </div>
+      <div class="card formation">
+        <div class="card-label">Formation</div>
+        <div class="card-body">
+          Same stem as futur simple + imparfait endings:
+          <div class="formula-box">
+            -ais / -ais / -ait / -ions / -iez / -aient<br><br>
+            parler → je parlerais<br>
+            faire → je ferais
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="examples-card">
+      <div class="card-label">Examples</div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Je voudrais un café, s'il vous plaît.</span><span class="ex-en">I would like a coffee, please.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Si j'avais de l'argent, j'achèterais une maison.</span><span class="ex-en">If I had money, I would buy a house.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Il serait malade, selon les médias.</span><span class="ex-en">He is reportedly ill.</span></div>
+    </div>
+  </div>
+
+  <!-- 12: Conditionnel Passé -->
+  <div class="panel" id="panel-12">
+    <div class="panel-header">
+      <div class="panel-num">12</div>
+      <div class="panel-titles">
+        <div class="panel-title-fr">Le Conditionnel Passé</div>
+        <div class="panel-title-en">Past Conditional</div>
+        <span class="mood-tag tag-conditionnel">Conditionnel</span>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">When to use</div>
+        <div class="card-body"><ul>
+          <li>What would have happened (regret / reproach)</li>
+          <li>Si + plus-que-parfait → cond. passé</li>
+          <li>Unconfirmed / alleged past events</li>
+        </ul></div>
+      </div>
+      <div class="card formation">
+        <div class="card-label">Formation</div>
+        <div class="card-body">
+          <div class="formula-box">
+            avoir/être (cond. présent) + participe passé<br><br>
+            j'aurais mangé &nbsp;/&nbsp; je serais parti(e)
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="examples-card">
+      <div class="card-label">Examples</div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">J'aurais aimé venir à la fête.</span><span class="ex-en">I would have liked to come to the party.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Si tu avais étudié, tu aurais réussi.</span><span class="ex-en">If you had studied, you would have passed.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Tu aurais pu me prévenir !</span><span class="ex-en">You could have warned me!</span></div>
+    </div>
+  </div>
+
+  <!-- 13: Subjonctif Présent -->
+  <div class="panel" id="panel-13">
+    <div class="panel-header">
+      <div class="panel-num">13</div>
+      <div class="panel-titles">
+        <div class="panel-title-fr">Le Subjonctif Présent</div>
+        <div class="panel-title-en">Present Subjunctive</div>
+        <span class="mood-tag tag-subjonctif">Subjonctif</span>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">When to use</div>
+        <div class="card-body"><ul>
+          <li>After <em>que</em> + doubt, emotion, wish, necessity</li>
+          <li><em>Il faut que, vouloir que, douter que…</em></li>
+          <li>After <em>bien que, pour que, avant que…</em></li>
+          <li>Subjective / unreal situations</li>
+        </ul></div>
+      </div>
+      <div class="card formation">
+        <div class="card-label">Formation</div>
+        <div class="card-body">
+          ils-form of présent, drop -ent:
+          <div class="formula-box">
+            stem + -e / -es / -e / -ions / -iez / -ent<br><br>
+            parler → ils parlent → parl-<br>
+            que je parle, que tu parles…
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="examples-card">
+      <div class="card-label">Examples</div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Il faut que tu fasses tes devoirs.</span><span class="ex-en">You must do your homework.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Je veux qu'il vienne.</span><span class="ex-en">I want him to come.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Bien qu'elle soit fatiguée, elle travaille.</span><span class="ex-en">Although she is tired, she works.</span></div>
+    </div>
+  </div>
+
+  <!-- 14: Subjonctif Passé -->
+  <div class="panel" id="panel-14">
+    <div class="panel-header">
+      <div class="panel-num">14</div>
+      <div class="panel-titles">
+        <div class="panel-title-fr">Le Subjonctif Passé</div>
+        <div class="panel-title-en">Past Subjunctive</div>
+        <span class="mood-tag tag-subjonctif">Subjonctif</span>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">When to use</div>
+        <div class="card-body"><ul>
+          <li>Same triggers as subjonctif présent</li>
+          <li>But the subordinate action is <em>completed</em></li>
+          <li>Emotion / doubt about something already done</li>
+        </ul></div>
+      </div>
+      <div class="card formation">
+        <div class="card-label">Formation</div>
+        <div class="card-body">
+          <div class="formula-box">
+            avoir/être (subj. présent) + participe passé<br><br>
+            que j'aie mangé &nbsp;/&nbsp; que je sois parti(e)
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="examples-card">
+      <div class="card-label">Examples</div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Je suis content qu'il ait réussi.</span><span class="ex-en">I am glad he succeeded.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Je doute qu'elle soit arrivée.</span><span class="ex-en">I doubt she has arrived.</span></div>
+    </div>
+  </div>
+
+  <!-- 15: Subjonctif Imparfait -->
+  <div class="panel" id="panel-15">
+    <div class="panel-header">
+      <div class="panel-num">15</div>
+      <div class="panel-titles">
+        <div class="panel-title-fr">Le Subjonctif Imparfait</div>
+        <div class="panel-title-en">Imperfect Subjunctive</div>
+        <span class="mood-tag tag-subjonctif">Subjonctif</span>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">When to use</div>
+        <div class="card-body"><ul>
+          <li>Literary / formal only</li>
+          <li>Same triggers as subj. présent</li>
+          <li>Main verb in a past tense (concordance des temps)</li>
+          <li>Extremely rare in spoken French</li>
+        </ul></div>
+      </div>
+      <div class="card formation">
+        <div class="card-label">Formation</div>
+        <div class="card-body">
+          Passé simple stem (2nd person sg.) + endings:
+          <div class="formula-box">
+            -sse / -sses / -^t / -ssions / -ssiez / -ssent<br><br>
+            parler → tu parlas → parlasse<br>
+            finir → tu finis → finisse
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="examples-card">
+      <div class="card-label">Examples</div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Il fallait qu'il parlât au roi.</span><span class="ex-en">It was necessary that he speak to the king.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Elle voulait qu'il fût présent.</span><span class="ex-en">She wanted him to be present.</span></div>
+    </div>
+  </div>
+
+  <!-- 16: Subjonctif Plus-que-parfait -->
+  <div class="panel" id="panel-16">
+    <div class="panel-header">
+      <div class="panel-num">16</div>
+      <div class="panel-titles">
+        <div class="panel-title-fr">Le Subjonctif Plus-que-parfait</div>
+        <div class="panel-title-en">Pluperfect Subjunctive</div>
+        <span class="mood-tag tag-subjonctif">Subjonctif</span>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">When to use</div>
+        <div class="card-body"><ul>
+          <li>Literary / formal only</li>
+          <li>Completed action in a past subjunctive context</li>
+          <li>Also used as alternate form of conditionnel passé (literary)</li>
+        </ul></div>
+      </div>
+      <div class="card formation">
+        <div class="card-label">Formation</div>
+        <div class="card-body">
+          <div class="formula-box">
+            avoir/être (subj. imparfait) + participe passé<br><br>
+            que j'eusse compris &nbsp;/&nbsp; que je fusse parti(e)
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="examples-card">
+      <div class="card-label">Examples</div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Je doutais qu'il eût compris.</span><span class="ex-en">I doubted that he had understood.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Eût-il su, il serait venu. (literary cond.)</span><span class="ex-en">Had he known, he would have come.</span></div>
+    </div>
+  </div>
+
+  <!-- 17: Impératif Présent -->
+  <div class="panel" id="panel-17">
+    <div class="panel-header">
+      <div class="panel-num">17</div>
+      <div class="panel-titles">
+        <div class="panel-title-fr">L'Impératif Présent</div>
+        <div class="panel-title-en">Present Imperative</div>
+        <span class="mood-tag tag-imperatif">Impératif</span>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">When to use</div>
+        <div class="card-body"><ul>
+          <li>Direct commands and orders</li>
+          <li>Advice and suggestions</li>
+          <li>Instructions and directions</li>
+          <li>Only 3 forms: tu / nous / vous</li>
+        </ul></div>
+      </div>
+      <div class="card formation">
+        <div class="card-label">Formation</div>
+        <div class="card-body">
+          Présent form, no subject pronoun:
+          <div class="formula-box">
+            -ER verbs: drop -s from tu form<br>
+            tu parles → Parle !<br>
+            nous parlons → Parlons !<br>
+            vous parlez → Parlez !
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="examples-card">
+      <div class="card-label">Examples</div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Mange tes légumes !</span><span class="ex-en">Eat your vegetables!</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Soyez à l'heure !</span><span class="ex-en">Be on time!</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Allons-y !</span><span class="ex-en">Let's go!</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Ne touche pas ça !</span><span class="ex-en">Don't touch that!</span></div>
+    </div>
+  </div>
+
+  <!-- 18: Impératif Passé -->
+  <div class="panel" id="panel-18">
+    <div class="panel-header">
+      <div class="panel-num">18</div>
+      <div class="panel-titles">
+        <div class="panel-title-fr">L'Impératif Passé</div>
+        <div class="panel-title-en">Past Imperative</div>
+        <span class="mood-tag tag-imperatif">Impératif</span>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">When to use</div>
+        <div class="card-body"><ul>
+          <li>Command that must be completed <em>by</em> a deadline</li>
+          <li>Very rare — mainly formal / written</li>
+          <li>"Have it done by tonight"</li>
+        </ul></div>
+      </div>
+      <div class="card formation">
+        <div class="card-label">Formation</div>
+        <div class="card-body">
+          <div class="formula-box">
+            avoir/être (impératif présent) + participe passé<br><br>
+            Aie terminé / Ayons terminé / Ayez terminé
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="examples-card">
+      <div class="card-label">Examples</div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Aie terminé avant ce soir !</span><span class="ex-en">Have it finished by tonight!</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Soyez partis avant midi.</span><span class="ex-en">Be gone before noon.</span></div>
+    </div>
+  </div>
+
+  <!-- 19: Participe Présent & Gérondif -->
+  <div class="panel" id="panel-19">
+    <div class="panel-header">
+      <div class="panel-num">19</div>
+      <div class="panel-titles">
+        <div class="panel-title-fr">Le Participe Présent &amp; Le Gérondif</div>
+        <div class="panel-title-en">Present Participle &amp; Gerund</div>
+        <span class="mood-tag tag-other">Other</span>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">When to use</div>
+        <div class="card-body"><ul>
+          <li><strong>Participe présent:</strong> simultaneous action, adjective-like</li>
+          <li><strong>Gérondif (en + …):</strong> while / by doing something</li>
+          <li>Replaces relative clauses (<em>qui + verb</em>)</li>
+          <li>Never changes for subject (invariable as verb)</li>
+        </ul></div>
+      </div>
+      <div class="card formation">
+        <div class="card-label">Formation</div>
+        <div class="card-body">
+          nous-form, drop -ons:
+          <div class="formula-box">
+            stem + -ant<br><br>
+            parler → parlant<br>
+            finir → finissant<br>
+            Gérondif: en + participe présent
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="examples-card">
+      <div class="card-label">Examples</div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Il étudie en écoutant de la musique.</span><span class="ex-en">He studies while listening to music.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">C'est en forgeant qu'on devient forgeron.</span><span class="ex-en">Practice makes perfect. (lit: by forging one becomes a blacksmith)</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Les enfants criant, personne ne dormait.</span><span class="ex-en">With the children crying, nobody slept.</span></div>
+    </div>
+  </div>
+
+  <!-- 20: Participe Passé -->
+  <div class="panel" id="panel-20">
+    <div class="panel-header">
+      <div class="panel-num">20</div>
+      <div class="panel-titles">
+        <div class="panel-title-fr">Le Participe Passé</div>
+        <div class="panel-title-en">Past Participle</div>
+        <span class="mood-tag tag-other">Other</span>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">When to use</div>
+        <div class="card-body"><ul>
+          <li>Building all compound tenses (with avoir/être)</li>
+          <li>As adjective (agrees in gender/number)</li>
+          <li>Passive voice (être + participe passé)</li>
+          <li>Absolute constructions</li>
+        </ul></div>
+      </div>
+      <div class="card formation">
+        <div class="card-label">Formation</div>
+        <div class="card-body">
+          <div class="formula-box">
+            -ER → -é &nbsp; (parler → parlé)<br>
+            -IR → -i &nbsp; (finir → fini)<br>
+            -RE → -u &nbsp; (vendre → vendu)<br>
+            Irregulars: fait, dit, pris, mis, écrit…<br>
+            Agreement: with être (subject) / avoir (preceding DO)
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="examples-card">
+      <div class="card-label">Examples</div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">La porte est fermée.</span><span class="ex-en">The door is closed. (adjective)</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Le livre a été écrit en 1850.</span><span class="ex-en">The book was written in 1850. (passive)</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Les lettres qu'il a écrites sont belles.</span><span class="ex-en">The letters he wrote are beautiful. (agreement)</span></div>
+    </div>
+  </div>
+
+  <!-- 21: Infinitif -->
+  <div class="panel" id="panel-21">
+    <div class="panel-header">
+      <div class="panel-num">21</div>
+      <div class="panel-titles">
+        <div class="panel-title-fr">L'Infinitif Présent &amp; Passé</div>
+        <div class="panel-title-en">Present &amp; Past Infinitive</div>
+        <span class="mood-tag tag-other">Other</span>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">When to use</div>
+        <div class="card-body"><ul>
+          <li><strong>Présent:</strong> after prepositions, modal verbs, as noun/subject</li>
+          <li><strong>Passé:</strong> after <em>après</em>, for completed prior action</li>
+          <li>Negative infinitive: <em>ne pas + infinitif</em></li>
+          <li>With <em>pour / sans / avant de / afin de</em></li>
+        </ul></div>
+      </div>
+      <div class="card formation">
+        <div class="card-label">Formation</div>
+        <div class="card-body">
+          <div class="formula-box">
+            Présent: base form (parler, finir, vendre)<br><br>
+            Passé: avoir/être (infinitif) + participe passé<br>
+            → avoir mangé &nbsp;/&nbsp; être parti(e)
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="examples-card">
+      <div class="card-label">Examples</div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Après avoir mangé, il est sorti.</span><span class="ex-en">After having eaten, he went out.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Il veut partir tôt.</span><span class="ex-en">He wants to leave early.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Parler plusieurs langues est un atout.</span><span class="ex-en">Speaking several languages is an asset.</span></div>
+      <div class="ex-row"><span class="ex-dot"></span><span class="ex-fr">Ne pas fumer dans cet espace.</span><span class="ex-en">No smoking in this area.</span></div>
+    </div>
+  </div>
+
+</div><!-- /panels -->
+
+<script>
+  // Tab switching
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const panels = document.querySelectorAll('.panel');
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.tab;
+      tabBtns.forEach(b => b.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('panel-' + tab).classList.add('active');
+    });
+  });
+
+  // Mood filter
+  const moodBtns = document.querySelectorAll('.mood-btn');
+  moodBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      moodBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+
+      tabBtns.forEach(tb => {
+        if (filter === 'all' || tb.dataset.mood === filter) {
+          tb.classList.add('visible');
+        } else {
+          tb.classList.remove('visible');
+          if (tb.classList.contains('active')) {
+            tb.classList.remove('active');
+          }
+        }
+      });
+
+      // Auto-activate first visible tab
+      const firstVisible = document.querySelector('.tab-btn.visible');
+      if (firstVisible) {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        panels.forEach(p => p.classList.remove('active'));
+        firstVisible.classList.add('active');
+        document.getElementById('panel-' + firstVisible.dataset.tab).classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
