@@ -80,31 +80,59 @@ tabBtns.forEach(btn => {
   }
 });
 
+let touchStartX = 0;
+let touchEndX = 0;
 
-let lastTap = 0;
+document.addEventListener('touchstart', e => {
+  touchStartX = e.touches[0].clientX;
+});
 
-document.addEventListener('touchend', function (e) {
-  const now = Date.now();
-  const DOUBLE_TAP_DELAY = 300;
+document.addEventListener('touchend', e => {
+  touchEndX = e.changedTouches[0].clientX;
 
-  if (now - lastTap < DOUBLE_TAP_DELAY) {
-    const touchX = e.changedTouches[0].clientX;
-    const screenWidth = window.innerWidth;
+  const diff = touchStartX - touchEndX;
+  const threshold = 50;
 
-    const visibleTabs = Array.from(document.querySelectorAll('.tab-btn.visible'));
-    const active = document.querySelector('.tab-btn.active');
-    const idx = visibleTabs.indexOf(active);
+  const visibleTabs = Array.from(document.querySelectorAll('.tab-btn.visible'));
+  const active = document.querySelector('.tab-btn.active');
+  const idx = visibleTabs.indexOf(active);
 
-    // 👉 Right side → next tab
-    if (touchX > screenWidth / 2 && idx < visibleTabs.length - 1) {
-      visibleTabs[idx + 1].click();
-    }
-
-    // 👉 Left side → previous tab
-    if (touchX <= screenWidth / 2 && idx > 0) {
-      visibleTabs[idx - 1].click();
-    }
+  // 👉 Swipe left → next
+  if (diff > threshold && idx < visibleTabs.length - 1) {
+    visibleTabs[idx + 1].click();
   }
 
-  lastTap = now;
+  // 👉 Swipe right → previous
+  if (diff < -threshold && idx > 0) {
+    visibleTabs[idx - 1].click();
+  }
 });
+
+
+// let lastTap = 0;
+
+// document.addEventListener('touchend', function (e) {
+//   const now = Date.now();
+//   const DOUBLE_TAP_DELAY = 300;
+
+//   if (now - lastTap < DOUBLE_TAP_DELAY) {
+//     const touchX = e.changedTouches[0].clientX;
+//     const screenWidth = window.innerWidth;
+
+//     const visibleTabs = Array.from(document.querySelectorAll('.tab-btn.visible'));
+//     const active = document.querySelector('.tab-btn.active');
+//     const idx = visibleTabs.indexOf(active);
+
+//     // 👉 Right side → next tab
+//     if (touchX > screenWidth / 2 && idx < visibleTabs.length - 1) {
+//       visibleTabs[idx + 1].click();
+//     }
+
+//     // 👉 Left side → previous tab
+//     if (touchX <= screenWidth / 2 && idx > 0) {
+//       visibleTabs[idx - 1].click();
+//     }
+//   }
+
+//   lastTap = now;
+// });
