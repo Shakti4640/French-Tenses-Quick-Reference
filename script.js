@@ -79,3 +79,32 @@ tabBtns.forEach(btn => {
     visibleTabs[idx - 1].click();
   }
 });
+
+
+let lastTap = 0;
+
+document.addEventListener('touchend', function (e) {
+  const now = Date.now();
+  const DOUBLE_TAP_DELAY = 300;
+
+  if (now - lastTap < DOUBLE_TAP_DELAY) {
+    const touchX = e.changedTouches[0].clientX;
+    const screenWidth = window.innerWidth;
+
+    const visibleTabs = Array.from(document.querySelectorAll('.tab-btn.visible'));
+    const active = document.querySelector('.tab-btn.active');
+    const idx = visibleTabs.indexOf(active);
+
+    // 👉 Right side → next tab
+    if (touchX > screenWidth / 2 && idx < visibleTabs.length - 1) {
+      visibleTabs[idx + 1].click();
+    }
+
+    // 👉 Left side → previous tab
+    if (touchX <= screenWidth / 2 && idx > 0) {
+      visibleTabs[idx - 1].click();
+    }
+  }
+
+  lastTap = now;
+});
