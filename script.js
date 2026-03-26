@@ -83,11 +83,13 @@ tabBtns.forEach(btn => {
 let touchStartX = 0;
 let touchEndX = 0;
 
-document.addEventListener('touchstart', e => {
-  touchStartX = e.touches[0].clientX;
-});
+const touchArea = document.body;
 
-document.addEventListener('touchend', e => {
+touchArea.addEventListener('touchstart', e => {
+  touchStartX = e.touches[0].clientX;
+}, { passive: true });
+
+touchArea.addEventListener('touchend', e => {
   touchEndX = e.changedTouches[0].clientX;
 
   const diff = touchStartX - touchEndX;
@@ -97,17 +99,17 @@ document.addEventListener('touchend', e => {
   const active = document.querySelector('.tab-btn.active');
   const idx = visibleTabs.indexOf(active);
 
-  // 👉 Swipe left → next
+  if (idx === -1) return; // 🔴 important safety
+
   if (diff > threshold && idx < visibleTabs.length - 1) {
     visibleTabs[idx + 1].click();
   }
 
-  // 👉 Swipe right → previous
   if (diff < -threshold && idx > 0) {
     visibleTabs[idx - 1].click();
   }
-});
 
+}, { passive: true });
 
 // let lastTap = 0;
 
