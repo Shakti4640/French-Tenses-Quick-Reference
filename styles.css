@@ -74,7 +74,12 @@
     gap: 6px;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 20px 24px 0;
+    padding: 12px 24px 8px;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
   }
   .mood-btn {
     background: var(--tag-bg);
@@ -100,9 +105,13 @@
   /* ── Tab bar ─────────────────────────────────── */
   .tab-wrapper {
     overflow-x: auto;
-    padding: 18px 24px 0;
+    padding: 8px 24px 0;
     scrollbar-width: thin;
     scrollbar-color: var(--border) transparent;
+    position: sticky;
+    top: 46px;
+    z-index: 19;
+    background: var(--bg);
   }
   .tab-bar {
     display: flex;
@@ -145,6 +154,9 @@
     height: 1px;
     background: var(--border);
     margin: 0 24px;
+    position: sticky;
+    top: 84px;
+    z-index: 18;
   }
 
   /* ── Panel ───────────────────────────────────── */
